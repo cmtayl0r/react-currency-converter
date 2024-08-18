@@ -1,8 +1,8 @@
-function Drawer() {
+function Drawer({ onCloseDrawer }) {
   return (
-    <div id="drawer" className="drawer">
+    <div id="drawer" className="drawer show">
       <div className="title">
-        <button id="dismiss-btn">
+        <button id="dismiss-btn" onClick={onCloseDrawer}>
           <span className="material-symbols-outlined"> west </span>
         </button>
         <h3>Select Currency</h3>
