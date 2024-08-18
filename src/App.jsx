@@ -18,14 +18,14 @@ function App() {
   // State for the exchange rates
   const [rates, setRates] = useState({});
   // State for the base and target currencies
-  const [base, setBase] = useState("GBR");
-  const [target, setTarget] = useState("EUR");
+  const [base, setBase] = useState("EUR");
+  const [target, setTarget] = useState("USD");
   // State for the base value
   const [baseValue, setBaseValue] = useState(1);
-  // State to show/hide the drawer
+  // State to show/hide the drawer and the type of drawer (base or target)
   const [openedDrawer, setOpenedDrawer] = useState(null);
   // State for loading
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   // 2. SIDE EFFECTS (API CALLS)
 
@@ -65,14 +65,6 @@ function App() {
 
   // 3. EVENT HANDLERS
 
-  // const handleShowDrawer = () => {
-  //   // FIXME: Animation is not working
-  //   showDrawer ? console.log("Hide drawer") : console.log("Show drawer");
-  //   setShowDrawer(!showDrawer);
-  //   // Reset the filtered currencies when closing the drawer
-  //   if (!showDrawer) setFilteredCurrencies(currenciesData);
-  // };
-
   const handleDrawerToggle = (drawerId = null) => {
     console.log("Drawer ID:", drawerId);
     if (drawerId) {
@@ -91,6 +83,18 @@ function App() {
     handleDrawerToggle();
   };
 
+  const handleCurrencyFilter = keyword => {
+    setFilteredCurrencies(
+      currenciesData.filter(
+        ({ code, name }) =>
+          code.toLowerCase().includes(keyword.toLowerCase()) ||
+          name.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
+  };
+
+  // 4. RENDER
+
   return (
     <main>
       <h1>React Currency Calculator</h1>
@@ -105,8 +109,10 @@ function App() {
       <ExchangeRate base={base} target={target} rates={rates} />
       {openedDrawer && (
         <Drawer
-          currencies={currenciesData}
+          filteredCurrencies={filteredCurrencies}
           handleDrawerToggle={handleDrawerToggle}
+          handleCurrencySelect={handleCurrencySelect}
+          handleCurrencyFilter={handleCurrencyFilter}
         />
       )}
     </main>

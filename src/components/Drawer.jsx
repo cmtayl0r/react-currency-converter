@@ -1,4 +1,13 @@
-function Drawer({ currencies, handleDrawerToggle }) {
+function Drawer({
+  handleDrawerToggle,
+  handleCurrencySelect,
+  handleCurrencyFilter,
+  filteredCurrencies,
+}) {
+  const handleSearchChange = e => {
+    handleCurrencyFilter(e.target.value);
+  };
+
   const flagURL = code => {
     return `https://flagcdn.com/${code.slice(0, 2).toLowerCase()}.svg`;
   };
@@ -13,12 +22,18 @@ function Drawer({ currencies, handleDrawerToggle }) {
         <span></span>
       </div>
       <div className="search">
-        <input type="search" id="search" placeholder="Search" />
+        <input
+          type="search"
+          id="search"
+          placeholder="Search"
+          onChange={handleSearchChange}
+        />
       </div>
       <ul className="currency-list" id="currency-list">
-        {currencies.map(({ name, code }) => {
+        {/* // Loop through the filtered currencies and display each currency */}
+        {filteredCurrencies.map(({ name, code }) => {
           return (
-            <li key={code}>
+            <li key={code} onClick={() => handleCurrencySelect(code)}>
               <img src={flagURL(code)} alt={name} width="64" />
               <div>
                 <h4>{code}</h4>
