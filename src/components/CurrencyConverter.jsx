@@ -14,7 +14,6 @@ function CurrencyConverter({
     // and set it as the new base value
     setBaseValue(parseFloat(e.target.value) || 1);
   };
-
   return (
     <div className="controls">
       {/* Base */}

@@ -15,6 +15,7 @@ import ExchangeRate from "./components/ExchangeRate";
 // TODO: Loading states and skeleton screens
 // TODO: Hover, active and focus states
 // TODO: Fix drawer animation
+// TODO: Flag to display instead of green circle
 
 function App() {
   // 1. STATE

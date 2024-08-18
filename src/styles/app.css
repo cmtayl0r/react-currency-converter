@@ -277,9 +277,16 @@ Relative position set by <main>
     cursor: pointer;
     padding-block: 5px;
 
+    &:hover {
+      background: var(--clr-gray-light);
+    }
+    &:active {
+      background: var(--clr-gray);
+    }
+
     /* */
     &:first-child {
-      padding-block-start: 0;
+      /* padding-block-start: 0; */
     }
   }
   /* Disable click events for non list item */
