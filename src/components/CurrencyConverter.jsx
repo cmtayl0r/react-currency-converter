@@ -2,9 +2,10 @@ function CurrencyConverter({
   base,
   target,
   baseValue,
+  rates,
   setBaseValue,
   handleDrawerToggle,
-  rates,
+  handleSwap,
 }) {
   const handleInputChange = e => {
     // Update the base value
@@ -43,7 +44,7 @@ function CurrencyConverter({
         />
       </div>
       {/* Swap button */}
-      <button className="swap-btn" id="swap-btn">
+      <button className="swap-btn" id="swap-btn" onClick={handleSwap}>
         <span className="material-symbols-outlined"> sync_alt </span>
       </button>
       {/* {loading && <div className="skeleton">Loading...</div>} */}

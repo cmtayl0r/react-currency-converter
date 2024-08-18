@@ -61,7 +61,7 @@ function App() {
 
     fetchExchangeRate();
     fetchCurrencies();
-  }, []); // Ensure useEffect runs only once after the first render
+  }, [base]); // Ensure useEffect runs only once after the first render,dependency array includes base
 
   // 3. EVENT HANDLERS
 
@@ -93,6 +93,8 @@ function App() {
     );
   };
 
+  const handleSwap = () => {};
+
   // 4. RENDER
 
   return (
@@ -105,6 +107,7 @@ function App() {
         setBaseValue={setBaseValue}
         rates={rates}
         handleDrawerToggle={handleDrawerToggle}
+        handleSwap={handleSwap}
       />
       <ExchangeRate base={base} target={target} rates={rates} />
       {openedDrawer && (
