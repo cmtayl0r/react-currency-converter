@@ -3,6 +3,7 @@ function Drawer({
   handleCurrencySelect,
   handleCurrencyFilter,
   filteredCurrencies,
+  openedDrawer,
 }) {
   const handleSearchChange = e => {
     handleCurrencyFilter(e.target.value);
@@ -13,7 +14,7 @@ function Drawer({
   };
 
   return (
-    <div id="drawer" className="drawer show">
+    <div id="drawer" className={`drawer ${openedDrawer ? "show" : ""}`}>
       <div className="title">
         <button id="dismiss-btn" onClick={() => handleDrawerToggle()}>
           <span className="material-symbols-outlined"> west </span>

@@ -8,6 +8,14 @@ import CurrencyConverter from "./components/CurrencyConverter";
 import Drawer from "./components/Drawer";
 import ExchangeRate from "./components/ExchangeRate";
 
+// TODO: Review CSS for unused styles or issues
+// TODO: Transform control into component
+// TODO: Accessibility improvements
+// TODO: Error handling
+// TODO: Loading states and skeleton screens
+// TODO: Hover, active and focus states
+// TODO: Fix drawer animation
+
 function App() {
   // 1. STATE
 
@@ -129,6 +137,7 @@ function App() {
           handleDrawerToggle={handleDrawerToggle}
           handleCurrencySelect={handleCurrencySelect}
           handleCurrencyFilter={handleCurrencyFilter}
+          openedDrawer={openedDrawer}
         />
       )}
     </main>

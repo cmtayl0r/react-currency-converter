@@ -211,13 +211,7 @@ Relative position set by <main>
   align-content: start;
   padding: 20px;
   gap: 20px;
-  /* Animation starting point */
-  transform: translateY(100%); /* Hide the drawer */
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &.show {
-    transform: translateY(0);
-  }
+  animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
   & .title {
     display: flex;
@@ -249,6 +243,17 @@ Relative position set by <main>
         color: var(--clr-white);
       }
     }
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
