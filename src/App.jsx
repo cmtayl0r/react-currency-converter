@@ -98,6 +98,11 @@ function App() {
     );
   };
 
+  const handleCurrencySwap = () => {
+    setBase(target);
+    setTarget(base);
+  };
+
   // 4. RENDER
 
   return (
@@ -110,6 +115,7 @@ function App() {
         setBaseValue={setBaseValue}
         rates={rates}
         handleDrawerToggle={handleDrawerToggle}
+        handleCurrencySwap={handleCurrencySwap}
       />
       <ExchangeRate
         base={base}
