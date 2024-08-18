@@ -1,0 +1,308 @@
+:root {
+}
+
+body {
+  color-scheme: light;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #ad5389, #3c1053);
+  color: var(--clr-black);
+}
+
+*:focus-visible {
+  outline: 3px solid var(--clr-yellow);
+  outline-offset: 0.25rem;
+  border-radius: 0.125rem;
+}
+
+main {
+  background: var(--clr-white);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 480px;
+
+  display: grid;
+  gap: 20px;
+  box-shadow: inset 0 0 5px var(--shadow-1), 0 5px 10px var(--shadow-2);
+
+  /* Relative position set for the swap button and drawer */
+  position: relative;
+  overflow: hidden;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: var(--fs-1);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--clr-black);
+}
+
+.controls {
+  display: grid;
+  gap: 20px;
+  position: relative;
+}
+
+/* 
+-----------------------------------------------------------------------
+CONTROL
+-----------------------------------------------------------------------
+*/
+/* 
+Containers with button for currency selection and amount input
+*/
+
+.control {
+  display: flex;
+  background: var(--input-background);
+  box-shadow: inset 0 0 3px var(--input-shadow);
+  border-radius: 10px;
+  overflow: hidden;
+}
+/* 
+Currency "select" button using 3 parts (inc ::before and ::after) 
+*/
+.control button {
+  --image: url(https://placehold.co/30/teal/white?text=$);
+  font-weight: var(--fw-semiBold);
+  background: transparent;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Part - The currency symbol */
+.control button::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: teal var(--image) center no-repeat;
+}
+/* Part - The dropdown icon */
+.control button::after {
+  font-family: "Material Symbols Outlined";
+  font-size: 1.5rem;
+  content: "\e5cf";
+}
+
+.control button:hover {
+  color: var(--clr-purple);
+}
+
+/*
+The input field for the amount
+*/
+.control input {
+  font-size: 2.5rem;
+  text-align: end;
+  background: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+}
+
+/*
+Remove appearance of input type number spinner controls
+*/
+.control input::-webkit-inner-spin-button,
+.control input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 
+-----------------------------------------------------------------------
+SWAP BUTTON
+-----------------------------------------------------------------------
+*/
+/* 
+Button to swap the currency
+Uses a Materia icon for the swap icon
+*/
+
+.swap-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--clr-white);
+  color: var(--clr-gray);
+  line-height: 1;
+  box-shadow: 0 3px 5px var(--shadow-1);
+
+  /* Position the button in the container (.controls)*/
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  /* Animation */
+  transition: 0.2s;
+}
+
+.swap-btn:hover {
+  color: var(--clr-white);
+  background: var(--clr-purple);
+}
+
+.swap-btn span {
+  rotate: 90deg;
+  /* Get property value form parent */
+  transition: inherit;
+}
+
+.swap-btn:hover span {
+  rotate: 270deg;
+}
+
+/* 
+-----------------------------------------------------------------------
+EXCHANGE RATE DISPLAY
+-----------------------------------------------------------------------
+*/
+
+.exchange-rate {
+  text-align: center;
+
+  & h5 {
+    text-transform: uppercase;
+    color: var(--clr-purple);
+  }
+  span {
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: var(--fw-semiBold);
+    color: var(--clr-exchange-rate);
+
+    /* Used for Skeleton loading animation */
+    &:empty {
+      min-width: 120px;
+      min-height: 1.55rem;
+    }
+  }
+}
+
+/* 
+-----------------------------------------------------------------------
+CURRENCY DRAWER
+-----------------------------------------------------------------------
+*/
+/*
+A drawer that allows user to search for currencies
+Relative position set by <main>
+*/
+
+.drawer {
+  position: absolute;
+  inset: 0; /* Hide the drawer */
+  background: var(--clr-white);
+  display: grid;
+  align-content: start;
+  padding: 20px;
+  gap: 20px;
+  /* Animation starting point */
+  transform: translateY(100%); /* Hide the drawer */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.show {
+    transform: translateY(0);
+  }
+
+  & .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    & h3 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Close button */
+    & button {
+      height: 48px;
+      width: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+      border-radius: 50%;
+
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 1;
+        background-color: var(--clr-purple);
+        color: var(--clr-white);
+      }
+    }
+  }
+}
+
+.search input {
+  width: 100%;
+  font-size: var(--fs-base);
+  padding: 10px 20px;
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  /* outline-color: var(--clr-green); */
+}
+
+.currency-list {
+  list-style-type: none;
+  overflow-y: auto;
+
+  & li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding-block: 5px;
+
+    /* */
+    &:first-child {
+      padding-block-start: 0;
+    }
+  }
+  /* Disable click events for non list item */
+  /* Disregards all other childe targets (img, h4, p) inside li  */
+  & *:not(li) {
+    pointer-events: none;
+  }
+}
+
+.skeleton {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    border-radius: 0.25rem;
+    background: var(--loading-background-1);
+    content: "";
+    animation: loading 1s linear infinite alternate;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background: var(--loading-background-1);
+  }
+  100% {
+    background: var(--loading-background-2);
+  }
+}
