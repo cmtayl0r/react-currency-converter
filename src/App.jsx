@@ -25,21 +25,22 @@ function App() {
   // State to show/hide the drawer and the type of drawer (base or target)
   const [openedDrawer, setOpenedDrawer] = useState(null);
   // State for loading
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // 2. SIDE EFFECTS (API CALLS)
 
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
-        const response = await apiClient.get(API_LATEST);
-        // setLatestData(response.data);
-        // console.log("Exchange rates:", response.data);
+        // fetch the latest exchange rates for the base currency
+        const response = await apiClient.get(
+          `${API_LATEST}&base_currency=${base}`
+        );
+        // Update the rates state with the new rates data for the base currency
         setRates(prevRates => ({
           // Spread the previous rates
           ...prevRates,
           // Add the new rates with the base currency as the key
-          //
           [base]: response.data.data,
         }));
         console.log("Rates data:", rates);
@@ -49,13 +50,17 @@ function App() {
     };
 
     const fetchCurrencies = async () => {
+      setLoading(true);
+      console.log(loading);
       try {
         const response = await apiClient.get(API_CURRENCIES);
         const currencies = Object.values(response.data.data);
         setCurrenciesData(currencies); // Set the currencies data
         setFilteredCurrencies(currencies); // Set the filtered currencies
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching currencies data:", error);
+        setLoading(false);
       }
     };
 
@@ -93,8 +98,6 @@ function App() {
     );
   };
 
-  const handleSwap = () => {};
-
   // 4. RENDER
 
   return (
@@ -107,9 +110,13 @@ function App() {
         setBaseValue={setBaseValue}
         rates={rates}
         handleDrawerToggle={handleDrawerToggle}
-        handleSwap={handleSwap}
       />
-      <ExchangeRate base={base} target={target} rates={rates} />
+      <ExchangeRate
+        base={base}
+        target={target}
+        rates={rates}
+        loading={loading}
+      />
       {openedDrawer && (
         <Drawer
           filteredCurrencies={filteredCurrencies}

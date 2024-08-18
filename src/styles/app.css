@@ -284,25 +284,61 @@ Relative position set by <main>
   }
 }
 
+/* 
+-----------------------------------------------------------------------
+SKELETON LOADING ANIMATION
+-----------------------------------------------------------------------
+*/
 .skeleton {
   position: relative;
+  overflow: hidden;
+  background-color: var(--loading-background-1);
+  border-radius: 0.25rem;
 
   &::after {
     position: absolute;
     inset: 0;
-    z-index: 5;
-    border-radius: 0.25rem;
-    background: var(--loading-background-1);
+    z-index: 1;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      var(--loading-background-1) 0%,
+      var(--loading-background-2) 50%,
+      var(--loading-background-1) 100%
+    );
     content: "";
-    animation: loading 1s linear infinite alternate;
+    animation: loading 1s ease-in-out infinite;
   }
+
+  /* Optional text color change for better visibility during loading */
+  /* color: transparent; */
+  text-transform: capitalize;
 }
 
 @keyframes loading {
   0% {
-    background: var(--loading-background-1);
+    transform: translateX(-100%);
   }
   100% {
-    background: var(--loading-background-2);
+    transform: translateX(100%);
   }
+}
+
+/* Modifier class for skeleton text */
+.skeleton-text {
+  height: 1em;
+  margin: 0;
+  background-color: var(--loading-background-1);
+  border-radius: 0.25rem;
+}
+
+/* Modifier class for skeleton circles */
+.skeleton-circle {
+  border-radius: 50%;
+}
+
+/* Modifier class for skeleton blocks */
+.skeleton-block {
+  height: 100%;
+  width: 100%;
 }

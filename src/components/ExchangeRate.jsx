@@ -1,4 +1,7 @@
-function ExchangeRate({ base, target, rates }) {
+function ExchangeRate({ base, target, rates, loading }) {
+  if (loading) {
+    return <div className="exchange-rate skeleton">Loading...</div>;
+  }
   const rate = rates[base]?.[target]?.toFixed(4) || "Loading...";
 
   return (
